@@ -13,6 +13,20 @@ public class PageController {
         model.addAttribute("name", "Bhupinder Singh");
         model.addAttribute("profile", "Full stack developer");
         model.addAttribute("gitHubRepo", "https://github.com/Bhupinder784/AddressBook-System");
-        return "HOME";
+        return "Home";
+    }
+
+
+    @RequestMapping("/about")
+    public String aboutPage(Model model){
+        model.addAttribute("isLogin", false);
+        System.out.println("About page loading");
+        return "About";
+    }
+
+    @RequestMapping("/service")
+    public String servicePage(){
+        System.out.println("Service page loading");
+        return "Service";
     }
 }
