@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::#content})}">
-  <head> </head>
-  <body>   
-    <div id="content">
-        <h1>WELCOME TO SERVICES PAGE</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione consequuntur autem fugiat, vitae ad vel? Facere, exercitationem voluptates laudantium, aut modi veritatis tempora, impedit illum dignissimos magnam autem voluptatem praesentium?</p>
-    </div>
-  </body>
+<html lang="en" th:replace="~{base ::parent(~{::#content}, ~{::title}, ~{})}">
+<head>
+  <title>Service Page</title>
+</head>
+<body>
+  <div id="content">
+    <h1>WELCOME TO SERVICE PAGE</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis, neque!</p>
+  </div>
+  <script>
+    console.log("timi lae kashto shhe")
+  </script>
+</body>
 </html>

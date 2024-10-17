@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::.host-tag})}">
-  <head> </head>
-  <body>
-    <div class="host-tag" data-th-replace="${isLogin} ? ~{base :: parent(~{::#logedin})} : ~{base :: test(~{::#not_loged_in})}">
-      <section id="logedin">
-        <h1>user is logedin</h1>
-        <h2>Dynamic content</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, assumenda eius earum obcaecati tempora doloremque.</p>
-        <button>click on dynamic content</button>
-      </section>
+<html lang="en" th:replace="~{base ::parent(~{::#content}, ~{::title}, ~{::script})}">
+<head>
+  <title>About Page</title>
+</head>
+<body>
+  <div id="content">
+    <h1>WELCOME TO ABOUT PAGE</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis, neque!</p>
+  </div>
 
-      <section id="not_loged_in">
-        <h1>User is not logedin</h1>
-      </section>
-    </div>
 
-  </body>
+  <script>
+    console.log("Hello World!!")
+  </script>
+</body>
 </html>
