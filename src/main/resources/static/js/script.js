@@ -1,48 +1,63 @@
 console.log("Script loaded");
 
-// Initialize the current theme from localStorage or default to 'light'
-let activeTheme = getTheme();
+// change theme work
+let currentTheme = getTheme();
+//initial -->
 
 document.addEventListener("DOMContentLoaded", () => {
-    initializeTheme();
-  });
+  changeTheme();
+});
 
-function initializeTheme() {
-  changePageTheme(activeTheme);
+//TODO:
+function changeTheme() {
+  //set to web page
 
+  changePageTheme(currentTheme, "");
+  //set the listener to change theme button
   const changeThemeButton = document.querySelector("#theme_change_button");
-  // Add listener for the theme change button
-  changeThemeButton.addEventListener("click", toggleTheme);
+
+  changeThemeButton.addEventListener("click", (event) => {
+    let oldTheme = currentTheme;
+    console.log("change theme button clicked");
+    if (currentTheme === "dark") {
+      //theme ko light
+      currentTheme = "light";
+    } else {
+      //theme ko dark
+      currentTheme = "dark";
+    }
+    console.log(currentTheme);
+    changePageTheme(currentTheme, oldTheme);
+  });
 }
 
-//TODO
-function toggleTheme() {
-    const previousTheme = activeTheme;
-    activeTheme = activeTheme === "dark" ? "light" : "dark";
-  
-    //console.log(`Theme changed from ${previousTheme} to ${activeTheme}`);
-    changePageTheme(activeTheme, previousTheme);
-  }
-
+//set theme to localstorage
 function setTheme(theme) {
   localStorage.setItem("theme", theme);
 }
 
+//get theme from localstorage
 function getTheme() {
-  return localStorage.getItem("theme") || "light";
+  let theme = localStorage.getItem("theme");
+  return theme ? theme : "light";
 }
 
-function changePageTheme(newTheme, oldTheme = "") {
-  setTheme(newTheme); // Update localStorage
-
-  const htmlElement = document.querySelector("html");
+//change current page theme
+function changePageTheme(theme, oldTheme) {
+  //localstorage mein update karenge
+  setTheme(currentTheme);
+  //remove the current theme
 
   if (oldTheme) {
-    htmlElement.classList.remove(oldTheme);
+    document.querySelector("html").classList.remove(oldTheme);
   }
-  htmlElement.classList.add(newTheme);
+  //set the current theme
+  document.querySelector("html").classList.add(theme);
 
-  // Update the button text to reflect the opposite of the current theme
-  const changeThemeButton = document.querySelector("#theme_change_button span");
-  changeThemeButton.textContent = newTheme === "light" ? "Dark" : "Light";
+  // change the text of button
+  document
+    .querySelector("#theme_change_button")
+    .querySelector("span").textContent = theme == "light" ? "Dark" : "Light";
 }
+
+//change page change theme
