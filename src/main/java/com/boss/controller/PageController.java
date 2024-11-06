@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.boss.entities.User;
 import com.boss.forms.UserForm;
+import com.boss.helpers.Message;
+import com.boss.helpers.MessageType;
 import com.boss.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PageController {
@@ -66,22 +70,36 @@ public class PageController {
 
     // Processing register
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@ModelAttribute UserForm userForm, HttpSession session) {
         // Fetch from data
         // Userform
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .phoneNumber(userForm.getPhoneNumber())
-                .profilePic("https://images.pexels.com/photos/8307424/pexels-photo-8307424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
-                .build();
+        // User user = User.builder()
+        //         .name(userForm.getName())
+        //         .email(userForm.getEmail())
+        //         .password(userForm.getPassword())
+        //         .about(userForm.getAbout())
+        //         .phoneNumber(userForm.getPhoneNumber())
+        //         .profilePic("https://images.pexels.com/photos/8307424/pexels-photo-8307424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+        //         .build();
+
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("https://images.pexels.com/photos/8307424/pexels-photo-8307424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+
 
         User saveUser = userService.saveUser(user);
         // Validate Form data
         // Save Data
         // Message register successful
+
+        //Adding message
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+
+        session.setAttribute("message", message);
+
         // Redirect Login page
         return "redirect:/signup";
     }
